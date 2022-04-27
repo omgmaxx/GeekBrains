@@ -9,24 +9,47 @@ class Cell:
 class Board:
 
     def __init__(self):
+        self.game_count = 0
+        self.cells = []
+        self.new_game()
+
+    def new_game(self):
+        self.game_count += 1
+        print('\nНачинается игра №{}:'.format(self.game_count))
         self.cells = [[Cell([x, y]) for x in range(3)] for y in range(3)]
 
     def show_board(self):
-        for row in game1.cells:
+        for row in self.cells:
             for col in row:
                 print(col.state, end='')
             print()
 
-    # def check_states(self):
-    #     # for x in range(3):
-    #     #     if self.cells[x * 3].state == self.cells[x * 3 + 1].state == self.cells[x * 3 + 2].state or \
-    #     #             self.cells[x].state == self.cells[x + 3].state == self.cells[x + 6].state or \
-    #     #             self.cells[0].state == self.cells[4].state == self.cells[8].state or \
-    #     #             self.cells[2].state == self.cells[4].state == self.cells[6].state:
-    #     for x in range(3):
-    #         all(self.cells[x][0].state) == 'x'
-    #
-    #             print('Игра окончена!')
+    def check_states(self, name, side):
+        for y in range(3):
+            if all([self.cells[y][x].state == side for x in range(3)]):
+                self.end_game(name, side)
+
+        for x in range(3):
+            if all([self.cells[y][x].state == side for y in range(3)]):
+                self.end_game(name, side)
+
+        if all([self.cells[x][x].state == side for x in range(3)]):
+            self.end_game(name, side)
+
+        if all([self.cells[x][2-x].state == side for x in range(3)]):
+            self.end_game(name, side)
+
+        if all([self.cells[y][x].state != '-' for x in range(3) for y in range(3)]):
+            self.end_game(name, '-')
+
+    def end_game(self, name, side):
+        side_name = {'x': 'крестиках', 'o': 'ноликах'}
+        if side != '-':
+            print('Игрок {} на {} победил!'.format(name, side_name[side]))
+        else:
+            print('Ходы кончились - ничья!')
+
+        self.new_game()
 
 
 class Player:
@@ -38,26 +61,32 @@ class Player:
         self.side = self.sides[self.cntr[0]]
         self.cntr[0] += 1
         self.game = game
+        self.info()
 
     def info(self):
         print(self.name, self.side)
 
-    def take(self, pos):
-        self.game.cells[int(pos[1]) - 1][int(pos[0]) - 1].state = self.side
+    def take(self):
+        pos = input(f'Ходит {self.name}: ').split(maxsplit=1)
+        try:
+            if self.game.cells[int(pos[1]) - 1][int(pos[0]) - 1].state == '-':
+                self.game.cells[int(pos[1]) - 1][int(pos[0]) - 1].state = self.side
+            else:
+                raise IndexError('Поле занято!')
+        except IndexError:
+            print('Нелигитимный ход, попробуйте ещё раз:')
+            self.take()
+
+    def turn(self):
+        self.take()
+        self.game.show_board()
+        self.game.check_states(self.name, self.side)
 
 
-
-game1 = Board()
-game1.show_board()
-
-player_1 = Player('Вася', game1)
-player_2 = Player('Лёша', game1)
-player_1.info()
-player_2.info()
+game_one = Board()
+player_one = Player('Вася', game_one)
+player_two = Player('Лёша', game_one)
 
 while True:
-    player_1.take(input('Ходит первый игрок: ').split(maxsplit=1))
-    game1.show_board()
-    player_2.take(input('Ходит второй игрок: ').split(maxsplit=1))
-    game1.show_board()
-
+    player_one.turn()
+    player_two.turn()
