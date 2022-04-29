@@ -104,7 +104,7 @@ class Monk:
 open('karma.log', 'w').close()
 buddist = Monk()
 while True:
-    sleep(0.1)
+    sleep(0.03)
     if buddist.get_karma() >= buddist.get_target_karma():
         break
     buddist.one_day()

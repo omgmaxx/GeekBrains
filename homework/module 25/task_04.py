@@ -3,9 +3,9 @@ class Person:
     Базовый класс, описывающий человека
 
     Args:
-        __name (str): Имя
-        __surname (str): Фамилия
-        __age (int): Возраст
+        self.__name (str): Имя
+        self.__surname (str): Фамилия
+        self.__age (int): Возраст
 
     """
     def __init__(self, name: str, surname: str, age: int):
@@ -49,9 +49,9 @@ class Employee(Person):
     Класс Работник. Родитель: Person
 
     Args:
-        __name (str): Имя
-        __surname (str): Фамилия
-        __age (int): Возраст
+        self.__name (str): Имя
+        self.__surname (str): Фамилия
+        self.__age (int): Возраст
 
     """
     def __init__(self, name: str, surname: str, age: int):
@@ -168,4 +168,3 @@ for employee in [
         employee,
         employee.calc_salary())
     )
-

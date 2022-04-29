@@ -1,12 +1,13 @@
 import math
 
+
 class Car:
     """
         Базовый класс, описывающий машину
 
         Args:
-            __coords (list): Координаты [x, y]
-            __angle (int): Угол поворота
+            self.__coords (list): Координаты [x, y]
+            self.__angle (int): Угол поворота
 
     """
     def __init__(self, coord_x: int, coord_y: int, angle: int):
@@ -77,11 +78,11 @@ class Bus(Car):
         Класс автобус. Родитель: Car
 
         Args:
-            __coords (list): Координаты [x, y]
-            __angle (int): Угол поворота
+            self.__coords (list): Координаты [x, y]
+            self.__angle (int): Угол поворота
 
-            __passengers (int): Количество пассажиров
-            __money (int): Выручка автобуса
+            self.__passengers (int): Количество пассажиров
+            self.__money (int): Выручка автобуса
 
     """
     def __init__(self, coord_x: int, coord_y: int, angle: int):
@@ -161,7 +162,7 @@ class Bus(Car):
         self.set_money(self.get_passengers() * move * 10)
 
 
-bus = Bus(0, 0, 0)
+bus = Bus(coord_x=0, coord_y=0, angle=0)
 print(bus)
 bus.pas_enter(10)
 bus.move(100)

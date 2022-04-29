@@ -67,7 +67,7 @@ class Apartment(Property):
         worth (int): передаётся стоимость имущества
 
     Attributes:
-        __tax (float): налог на имущество (в дробях)
+        self.__tax (float): налог на имущество (в дробях)
 
     """
     def __init__(self, worth):
@@ -83,7 +83,7 @@ class Car(Property):
         worth (int): передаётся стоимость имущества
 
     Attributes:
-        __tax (float): налог на имущество (в дробях)
+        self.__tax (float): налог на имущество (в дробях)
 
     """
     def __init__(self, worth):
@@ -99,7 +99,7 @@ class ContryHouse(Property):
         worth (int): передаётся стоимость имущества
 
     Attributes:
-        __tax (float): налог на имущество (в дробях)
+        self.__tax (float): налог на имущество (в дробях)
 
     """
     def __init__(self, worth):
@@ -131,6 +131,9 @@ def ask_for_prop():
 
 def is_enough():
     """
+    Метод, выводящий, достаточно ли денег для оплаты налога
+
+
     Запрашивает количество денег,
     сравнивает с налогом на указанное в функции ask_for_pop() налогом
 
